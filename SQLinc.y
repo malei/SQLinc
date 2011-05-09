@@ -1,9 +1,4 @@
-/* ----------------------------------------------
- * Ramo: Recuperacion de la Informacion
- * Nombre: Luis Alberto Ortega Araneda
- * Tarea: 1
- * ----------------------------------------------
- */
+
 %{
 #include <stdio.h>
 #include <stdlib.h>
