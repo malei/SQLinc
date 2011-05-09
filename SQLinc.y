@@ -1,7 +1,6 @@
 /* ----------------------------------------------
  * Ramo: Recuperacion de la Informacion
  * Nombre: Luis Alberto Ortega Araneda
- * Rol: 2266047-0
  * Tarea: 1
  * ----------------------------------------------
  */
@@ -69,7 +68,6 @@ selectquery: SELECT ALL FROM table_name where_query end_query
 
 where_query: WHERE WORD EQUAL WORD
              {
-                 //printf("Tercer token: %s\n", $4);
                  char buffer[255];
                  char *result = NULL;
                  char *tipo = NULL;
@@ -82,17 +80,14 @@ where_query: WHERE WORD EQUAL WORD
                  int i=0;
                  int SELECTEXITOSO = 0;
 
-                //Obtener la consulta
-                char *nomCon = NULL;
-                char *valCon = NULL;
+                 //Obtener la consulta
+                 char *nomCon = NULL;
+                 char *valCon = NULL;
                 
-                    nomCon = strtok($2,"=");
-                    valCon = strtok(NULL," ");
+                 nomCon = strtok($2,"=");
+                 valCon = strtok(NULL," ");
                 
-                printf("SELECT: %s con el valor: %s\n",nomCon, valCon);
-                //=======================
-
-                 //SELECTEXITOSO = 0;
+                 printf("SELECT: %s con el valor: %s\n",nomCon, valCon);
                  while(fgets(buffer,255,schemedatabase)!=NULL){
                      
                      i=0;
@@ -104,21 +99,17 @@ where_query: WHERE WORD EQUAL WORD
                      result = strtok(buffer," ");
                      tipo = strtok(NULL, "(");
                      ntipo = tipo;
-                     //printf("TIPO %s\n", ntipo);                        
+
                      tipo = strtok(NULL, ")");
                      if (tipo == NULL){ tipo = "1";  }
                      largo = atoi(tipo);
-                     //Largo contiene el largo del dato a leer de database
-                     //printf("%-14s %d: ", result, largo);
                      sprintf(buf,"%-14s %d: ", result, largo);
                      
                      strcat(lineaRespuesta,buf);
 
-                     // largo tiene el largo y ntipo el tipo
                      if( strcmp(ntipo,"CHAR\n") == 0 || strcmp(ntipo,"CHAR") == 0 ){
 
                          fread(varTexto,sizeof(char),largo,database);
-                         //printf("%-14s\n", varTexto);
                          sprintf(buf,"%-14s\n", varTexto);
                          strcat(lineaRespuesta,buf);
                          if((strcmp(result,nomCon)==0) && (strcmp(varTexto,valCon)==0))
@@ -130,7 +121,6 @@ where_query: WHERE WORD EQUAL WORD
 
                          fread(varTexto,sizeof(char),1,database);
                          comodin = atoi(varTexto);
-                         //printf("===%d==", comodin);
                          i=0;
                          while(varTexto[i]!='\0'){
                              varTexto[i] = '\0';
@@ -139,7 +129,6 @@ where_query: WHERE WORD EQUAL WORD
 
 
                          fread(varTexto,sizeof(char),comodin,database);
-                         //printf("%-14s \n", varTexto);
                          sprintf(buf,"%-14s \n", varTexto);
 
                          if((strcmp(result,nomCon)==0) && (strcmp(varTexto,valCon)==0))
@@ -154,9 +143,7 @@ where_query: WHERE WORD EQUAL WORD
                      if(strcmp(ntipo,"INTEGER\n")==0){
 
                          fread(varTexto,sizeof(char),2,database);
-                         //printf("%-14s", varTexto);
                          sprintf(buf,"%-14s", varTexto);
-
 
                          if((strcmp(result,nomCon)==0) && (strcmp(varTexto,valCon)==0))
                          {
@@ -206,9 +193,6 @@ insert_word: WORD
                int resultnumerico = 1;
 
                fgets(buffer,255,schemedatabase);
-               //printf("la línea dice: %s\n", buffer);
-
-               //Aqui se parsea el largo del valor a escribir.
                result = strtok(buffer, "(");
                result = strtok(NULL, ")");
                if(result != NULL){
@@ -254,7 +238,6 @@ create_table: CREATE TABLE
 
 table_name: WORD
             {
-                //printf("nombre de la tabla: %s\n", $1);
                 char *both = malloc(strlen($1) + strlen(extension_archivo) + 2);
                 strcat(both,$1);
                 strcat(both,extension_archivo); 
@@ -270,37 +253,11 @@ words: COMMA word words
 word:
     | WORD TYPE
       { 
-          //printf("\nnombre_word:%s y el segundo es: %s\n", $1, $2);
-          //char *both = malloc(strlen($1) + strlen($2) + 2);
           char *both = malloc(strlen($1)+2);
           strcat(both,$1);
           strcat(both,"\n");
-          //strcat(both,$2);
           fwrite(both, sizeof(char),strlen(both),schemedatabase);
       }
 ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 %%

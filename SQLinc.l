@@ -29,6 +29,6 @@ FROM                return FROM;
 ;                   return SEMICOLON;
 [a-zA-Z]+           yylval.txt=yytext; return WORD;
 [0-9]+              yylval.txt=yytext; return WORD;
-\n		            /* ignore end of line */;
-[ \t]+		        /* ignore whitespace */;
+\n                  /* ignore end of line */;
+[ \t]+              /* ignore whitespace */;
 %%
