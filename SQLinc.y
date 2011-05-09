@@ -81,6 +81,10 @@ where_query: WHERE WORD EQUAL WORD
                  valCon = strtok(NULL," ");
                 
                  printf("SELECT: %s con el valor: %s\n",nomCon, valCon);
+
+while(!feof(database)){ 
+rewind(schemedatabase);  
+SELECTEXITOSO=0;              
                  while(fgets(buffer,255,schemedatabase)!=NULL){
                      
                      i=0;
@@ -160,7 +164,7 @@ where_query: WHERE WORD EQUAL WORD
                              lineaRespuesta[i] = '\0';
                              i++;
                  }
-                 
+}
              }
 ;
 
