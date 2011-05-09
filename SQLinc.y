@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#define YYSTYPE char *
 
 void yyerror(const char *str)
 {
@@ -80,7 +79,6 @@ where_query: WHERE WORD EQUAL WORD
                  int i=0;
                  int SELECTEXITOSO = 0;
 
-                 //Obtener la consulta
                  char *nomCon = NULL;
                  char *valCon = NULL;
                 
